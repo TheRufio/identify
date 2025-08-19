@@ -1,0 +1,59 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+{% block title %}
+    Профіль
+{% endblock %}
+
+{% block content%}
+<div class="profile" style="background-color: {{ profile_info.header_color }};">
+    <div class="profile-grid">
+        <img src="{{ profile_info.avatar.url }}">
+    </div>
+    <div class="profile-grid">
+        <div class="profile-container">
+            <div class="profile-item-nick">
+                {{ user.nickname }}
+            </div>
+            <div class="profile-item">
+                Лайки: {{ profile_info.likes }}
+            </div>
+            <div class="profile-item">
+                Перегляди: {{ profile_info.views }}
+            </div>
+            <div class="profile-item">
+                {% if user.is_staff %}
+                    <img style="width: 64px;height: 64px;" src="{% static 'app/images/logo.png' %}" alt="На головну">
+                {% endif %}
+                {% if request.user.is_staff %}
+                    <a href="{% url 'violations' %}">(Перевірка блогів)</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="profile-grid-description">
+        {{ profile_info.description }}
+    </div>
+</div>
+<div class="profile-buttons-container">
+    <div class="profile-buttons">
+        <a href="{% url 'create_blog' user_id=user.id %}">Створити блог</a>
+    </div>
+    <div class="profile-buttons">
+        <a href="{% url 'profile_edit' user_id=user.id %}">Редагувати профіль</a>
+    </div>
+    <div class="profile-buttons">
+        <a href="https://t.me/Identiffybot">Система Identify</a>
+    </div>
+</div>
+<div class="grid-container" style="background-color: {{ profile_info.main_color }};">
+    {% for blog in blogs %}
+        <div class="grid-item">
+            <a href="{% url 'blog_view' blog.id %}">
+                <img src="{{ blog.image.url }}" alt="{{ blog.topic }}">
+                <p>{{ blog.topic }}</p>
+            </a>
+            <p>{{ blog.view }} переглядів, {{ blog.like }} лайків</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

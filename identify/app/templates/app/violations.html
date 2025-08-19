@@ -1,0 +1,22 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+
+{% block title %}
+    Вироки
+{% endblock %}
+
+{% block content %}
+    <div class="grid-container">
+        {% for blog in blogs %}
+            <div class="grid-item">
+                <a href="{% url 'verdict' user_id=blog.blog.author.id blog_id=blog.blog.id %}">
+                    <img src="{{ blog.blog.image.url }}">
+                    {{ blog.bloked_at|date:"d.m.Y"}} - 
+                    {{ blog.reason }}
+                </a>
+
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

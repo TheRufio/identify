@@ -1,0 +1,61 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+
+{% block title %}
+Редагування - {{ user.nickname }}
+{% endblock %}
+
+{% block content%}
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="profile-edit-recomendation">
+            Ви ввійши в режим предпоказу профілю*
+        </div>
+        <div class="profile" style="background-color: {{ profile_info.header_color }}">
+            <div class="profile-grid" style="line-height: 30px; font-size:25px">
+                <img src="{{ profile_info.avatar.url }}">
+                {{ form.avatar }}
+                <i>Оберіть Ваш аватар, або скористайтеся наявними нижче*</i>
+            </div>
+            <div class="profile-grid">
+                <div class="profile-container" >
+                    <div class="profile-item-nick">
+                        <div class="input-nickname">
+                            {{ form.nickname }}
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        Головний - {{ form.main_color }}
+                    </div>
+                    <div class="profile-item">
+                        Профіль - {{ form.header_color }}
+                    </div>
+                    <div class="profile-item">
+                        Текст - {{ form.text_color }}
+                    </div>
+                    <div class="profile-item" style="line-height: 30px; font-style:italic; margin-top:20px;">
+                        Налаштований колір буде використовуватися всюди на сайті, та інші користувачі зможуть бачити ці кольори в Вашому профілі*
+                    </div>
+                </div>
+            </div>
+            <div class="profile-grid-description" style="margin-top: 0px; font-style:italic">
+                {{ form.description }}
+                <br>Можете додати опис профілю*
+            </div>
+        </div>
+        <div class="profile-buttons-container" style="background-color: {{ profile_info.header_color }};">
+            <div class="profile-buttons" >
+                <button type="submit">Підтвердити редагування</button>
+            </div>
+            <div class="profile-buttons">
+                <a href="{% url 'logout' %}">Вийти з акаунту</a>
+            </div>
+            <div class="profile-buttons">
+                <a href="https://t.me/Identiffybot">Система Identify</a>
+            </div>
+        </div>
+    </form>
+</body>
+
+{% endblock %}

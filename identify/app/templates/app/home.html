@@ -1,0 +1,52 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+{% block title %}
+    Головна
+{% endblock %}
+
+{% block content %}
+    <div class="grid-container">
+        {% for blog in blogs %}
+            <div class="grid-item">
+                <a href="{% url 'blog_view' blog.id %}">
+                    <img src="{{ blog.image.url }}" alt="{{ blog.topic }}">
+                    <p>{{ blog.topic }}</p>
+                </a>
+                <p>{{ blog.view }} 𓂀, {{ blog.like }} ♡
+                    {% if blog.author.is_staff %}
+                        <img style="width: 50px;height: 50px;display: inline-block" src="{% static 'app/images/logo.png' %}" alt="На головну">
+                    {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- <h2>Рекомендовані блоги</h2>
+    {% if recommended_blogs %}
+        <ul>
+            {% for blog in recommended_blogs %}
+                <li>
+                    <a href="{% url 'blog_view' blog.id %}">{{ blog.topic }}</a> - {{ blog.view }} переглядів, {{ blog.like }} лайків
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Поки що немає рекомендацій.</p>
+    {% endif %}
+
+    <h2>Усі блоги</h2>
+    <div class="grid-container">
+        {% for blog in all_blogs %}
+            <div class="grid-item">
+                <a href="{% url 'blog_view' blog.id %}">
+                    <img src="{{ blog.image.url }}" alt="{{ blog.topic }}">
+                    <p>{{ blog.topic }}</p>
+                </a>
+                <p>{{ blog.view }} переглядів, {{ blog.like }} лайків
+                    {% if blog.author.is_staff %}
+                        <img style="width: 50px;height: 50px;display: inline-block" src="{% static 'app/images/logo.png' %}" alt="На головну">
+                    {% endif %}
+                </p>
+            </div>
+        {% endfor %}
+    </div> -->
+{% endblock %}

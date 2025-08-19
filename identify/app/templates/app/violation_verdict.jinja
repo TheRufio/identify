@@ -1,0 +1,55 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+
+{% block title %}
+    Вердикт блогу - {{ blog_view.topic }}
+{% endblock %}
+
+{% block content %}
+       <div class="blog-view-title">
+            Заголовок:
+            {{ blog_view.topic }}
+        </div>
+        <div class="blog-break-container">
+            <div class="blog-break-item">
+                <img src="{{ blog_view.image.url }}">
+            </div>
+            <div class="blog-break-item">
+                Опис:
+                {{ blog_view.text }}
+            </div>
+            <div class="blog-break-item">
+                Дата блокування блогу:
+                {{ blog_view.violation.bloked_at|date:'d.m.Y.' }}
+            </div>
+            <div class="blog-break-item">
+                Причина видалення:
+                {{ blog_view.violation.reason }}
+            </div>
+            <div class="blog-break-item">
+                Степінь порушення:
+                {{ blog_view.violation.degree }}
+            </div>
+            <div class="blog-break-item">
+                Апеляці користувача:
+                {{ blog_view.violation.appeal }}
+            </div>
+            <div class="blog-break-item">
+                Вирок:
+            </div>
+        </div>
+        <div class="verdict-container">
+            <div class="verdict-item">
+                <form method="post">
+                    {% csrf_token %}
+                    <button name="delete" style="font-size:60px;background-color:rgb(248, 126, 126);color: {{ request.user.profile.text_color }}" type="submit">Винний</button>
+                </form>
+            </div>
+            <div class="verdict-item">
+                <form method="post">
+                    {% csrf_token %}
+                    <button name="save" style="font-size:60px;background-color:rgb(134, 255, 148);color: {{ request.user.profile.text_color }}" type="submit">Виправдано</button>
+                </form>
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'app/layout.jinja'%}
+{% load static %}
+{% block title %}
+    Редагування
+{% endblock %}
+
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="blog-redaction-title">
+            Заголовок: {{ form.topic }}<br>            
+        </div>
+        <div class="blog-redaction-container">
+            <div class="blog-redaction-item">
+                <img src="{{ blog.image.url }}">
+            </div>
+            <div class="blog-redaction-item">
+                {{ form.image }}
+            </div>
+        </div>
+        <div style="font-size:40px" class="blog-redaction-title">
+            Теги:
+            <input type="text" name="tags" value="{{ blog.tags.all|join:', ' }}" />
+        </div>
+        <div style="font-size:40px" class="blog-redaction-title">
+            Опис: {{ form.text }}<br>
+        </div>
+    <div class="blog-redaction-container" style="padding: 40px">
+        <div class="blog-redaction-item">
+            <button type="submit">Зберегти</button>
+        </div>
+        
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        <div class="blog-redaction-item">
+        <button type="submit" name="delete">Видалення блогу</button>
+    </form>
+        </div>
+    </div>
+
+{% endblock %}

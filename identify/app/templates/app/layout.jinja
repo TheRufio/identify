@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    {% block link %}{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'app/main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-color: {{ user.profile.main_color}};
+        color: {{ user.profile.text_color }};
+    }
+
+    a {
+        color: {{ user.profile.text_color }}; 
+    }
+
+    a:hover {
+        filter: brightness(80%)
+    }
+
+    button {
+        background-color: {{ profile_info.main_color }};
+        color: {{ profile_info.text_color }}
+    }
+</style>
+<body >
+
+    <form method="get" action="{% url 'search_result' %}" id="searchForm">
+    <div class="header">
+        <div class="header-item">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'app/images/logo.png' %}" alt="На головну">
+            </a>
+        </div>
+        <div class="header-item">
+            <input list="search" type="text" class="search" name="query" id="searchInput">
+            <datalist style="text-align: center;" id="search">
+                {% for result in search_result %}
+                    <option>{{ result }}</option>
+                {% endfor %}
+            </datalist>
+        </div>
+        <div class="header-item">
+            <a href="{% url 'search_result' %}" id="searchLink">
+                <img src="{% static 'app/images/search1.png' %}" style="width: 55px; height: 55px;">
+            </a>
+        </div>
+        <div class="header-item">
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' user_id=request.user.id %}">{{ user.nickname }}</a>
+            {% endif %}
+        </div>
+    </div>
+    </form>
+    <div class="content">
+        {% block content %}
+    
+        {% endblock %}
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    // Додаємо обробник події для оновлення посилання
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value; // Отримуємо значення з поля введення
+        const searchLink = document.getElementById('searchLink');
+        const baseUrl = "{% url 'search_result' %}"; // Базовий URL для пошуку
+        searchLink.href = `${baseUrl}?query=${encodeURIComponent(query)}`; // Додаємо параметр query до URL
+    });
+
+    // Додаємо обробник події для форми
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        const query = document.getElementById('searchInput').value; // Отримуємо значення з поля введення
+        if (!query.trim()) {
+            event.preventDefault(); // Зупиняємо відправку форми, якщо поле порожнє
+            alert('Будь ласка, введіть текст для пошуку.');
+        }
+    });
+</script>
+</html>

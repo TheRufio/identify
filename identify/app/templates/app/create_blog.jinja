@@ -1,0 +1,135 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+{% block title %}Додати пост{% endblock %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data">  
+    {% csrf_token %}
+    <!-- Загальні помилки -->
+    {% if form.non_field_errors %}
+        <div style="color: red;">
+            {% for error in form.non_field_errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div style='padding:100px' class="blog-redaction-title">
+        Заголовок: {{ form.topic }}
+        {% if form.topic.errors %}
+        <div style="color: red;">
+            {% for error in form.topic.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+    <div id="imagePreviewContainer" style="display: none; justify-content: center; align-items: center; width: 100%; margin-top: 10px;">
+        <img id="imagePreview" src="" alt="Попередній перегляд зображення" style="max-width: 800px; max-height: 1000px; border: 1px solid {{ user.porfile.text_color }}; padding: 5px; border-radius: 5px;" />
+    </div>
+
+
+    <div style="padding:100px" class="blog-redaction-title">
+        Опис: {{ form.text }}
+        {% if form.text.errors %}
+        <div style="color: red;">
+            {% for error in form.text.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    
+
+    <div class="blog-redaction-container">
+        <div class="blog-redaction-item">
+            Зображення: {{ form.image }}
+            {% if form.image.errors %}
+            <div style="color: red;">
+                {% for error in form.image.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    <div class="blog-redaction-item">
+        Теги: 
+    <input type="text" name="{{ form.tags.name }}" id="tagsInput" placeholder="Формат запису: тег, тег, тег">
+    <datalist id="tagList">
+        {% for tag in existing_tags %}
+            <option value="{{ tag }}">
+        {% endfor %}
+    </datalist>
+
+        {% if form.tags.errors %}
+        <div style="color: red;">
+            {% for error in form.tags.errors %}
+                <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+    </div>    
+    <div class="blog-redaction-title">
+        <button style="font-size:60px" type="submit">Створити</button>
+    </div>
+</form>
+<!-- Скрипт для попереднього перегляду зображення -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const imageField = document.querySelector('input[type="file"]');
+        const preview = document.getElementById('imagePreview');
+        const previewContainer = document.getElementById('imagePreviewContainer');
+
+        if (!imageField || !preview || !previewContainer) {
+            console.error("Поле для зображення або попередній перегляд не знайдені");
+            return;
+        }
+
+        imageField.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result; // Установка джерела зображення
+                    previewContainer.style.display = 'flex'; // Відображення контейнера
+                };
+
+                reader.readAsDataURL(file); // Читання файлу як Data URL
+            } else {
+                previewContainer.style.display = 'none'; // Приховування контейнера
+                preview.src = '';
+            }
+        });
+    });
+</script>
+<script>
+    const tagsInput = document.getElementById('tagsInput');
+
+    tagsInput.addEventListener('input', (e) => {
+        const currentValue = e.target.value;
+        const lastCommaIndex = currentValue.lastIndexOf(',');
+
+        // Відрізаємо останній тег, щоб пропонувати підказку тільки для нового
+        const searchTerm = lastCommaIndex === -1
+            ? currentValue.trim()
+            : currentValue.slice(lastCommaIndex + 1).trim();
+
+        tagsInput.setAttribute('list', 'tagList');
+    });
+
+    tagsInput.addEventListener('keydown', (e) => {
+        if (e.key === ',' || e.key === 'Enter') {
+            tagsInput.value = tagsInput.value + ', ';
+            e.preventDefault();
+        }
+    });
+
+    tagsInput.addEventListener('focus', () => {
+        tagsInput.setAttribute('list', 'tagList');
+    });
+</script>
+
+{% endblock %}
+

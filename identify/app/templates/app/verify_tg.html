@@ -1,0 +1,23 @@
+{% extends 'app/layout_clean.html' %}
+{% load static %}
+
+{% block titile %}
+Підтвердження реєстрації
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="post" class="login-form">
+        <div class="form-row">
+            Для закінчення етапу реєстрації слід активувати акаунт через телеграм бота:
+            <a href="https://t.me/Identiffybot">Identify</a>
+        </div>
+        <div class="form-row">
+            <label>
+                <i>Це можна зробити також зі сторінки 
+                    <a href="{% url 'home' %}">логін*</a>
+                </i></label>
+        </div>
+    </form>
+</div>
+{% endblock %}

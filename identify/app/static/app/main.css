@@ -1,0 +1,422 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Висота на весь екран */
+    /* background-color:#fdbac5;
+    color: #6A5ACD; */
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+}
+
+.header {
+    display: grid; /* Вмикаємо Grid Layout */
+    grid-template-columns: 10% 75% 5% 10%; /* Пропорції для колонок: 10% 80% 10% */
+    height: 7%; /* Висота header */
+    padding: 2px; /* Внутрішні відступи */
+}
+
+a {
+    text-decoration: none;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.header_clean {
+    height: 15%;
+    padding: 2px;
+    font-size: 100px;
+    text-align: center;
+}
+
+.form-container {
+    height: 80%; /* Висота для центрованого вирівнювання */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    width: 400px; /* Фіксована ширина форми */
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Відступи між елементами */
+    background-color: rgb(250, 235, 255);
+    padding: 20px;
+    border-radius: 10px; /* Закруглені кути */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тінь для об’єму */
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column; /* Вирівнювання елементів по вертикалі */
+    gap: 5px; /* Відступ між лейблом і полем */
+}
+
+.form-errors {
+    margin-top: 10px;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    /* background-color: #6A5ACD;  
+    color: white; */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 26px;
+    text-align: center;
+}
+
+
+.error {
+    color: red;
+    font-size: 16px;
+}
+
+.header-item {
+    display: flex; /* Для вирівнювання контенту всередині кожного елемента */
+    justify-content: center;
+    align-items: center;
+    /* color: white; */
+    font-size: 30px;
+}
+
+.content {
+    height: 80%;
+}
+
+
+/* 
+
+    Сітка блогів
+
+*/
+
+.grid-container {
+    column-count: 4; /* Количество колонок */
+    column-gap: 20px; /* Расстояние между колонками */
+    padding: 16px;
+    column-fill: balance;
+}
+@media (max-width: 924px) {
+    .grid-container {
+        column-count: 3;
+    }
+    
+}
+/* Телефоны (ширина экрана меньше 768px) */
+@media (max-width: 768px) {
+    .grid-container {
+        column-count: 2;
+    }
+    .header {
+        display: grid; /* Вмикаємо Grid Layout */
+        grid-template-columns: 20% 40% 15% 25%; /* Пропорції для колонок: 10% 80% 10% */
+        height: 7%; /* Висота header */
+        padding: 2px; /* Внутрішні відступи */
+    }
+}
+
+
+.grid-item {
+    display: inline-block; /* Позволяет элементам правильно размещаться в колонках */
+    width: 100%; /* Заполняем всю ширину колонки */
+    margin-bottom: 20px; 
+    break-inside: avoid; /* Предотвращает разрыв элементов внутри колонок */
+    text-align: center;
+    padding: 10px;
+}
+
+.grid-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+}
+
+
+/* .grid-container {
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 16px;
+    align-items: start;  
+}
+
+.grid-item {
+    overflow: hidden; 
+    text-align: center; 
+}
+
+.grid-item img {
+    width: 95%; 
+    height: auto; 
+
+    display: block;
+} */
+
+.grid-item a {
+    text-decoration: none; /* Без підкреслення у посилань */
+    /* color: #333; */
+    margin-top: 8px;
+}
+
+.grid-item p {
+    margin: 4px 0; /* Відступ між текстами */
+    flex-grow: 1;
+}
+
+
+/* .search
+{
+    width: 100%;
+} */
+
+
+
+/* 
+
+    Профіль
+
+*/
+
+.profile {
+    padding: 40px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    display: grid;
+    grid-template-columns: 20% 40% 35%;
+    gap: 20px;
+}
+
+.profile-grid {
+    text-align: left;
+    line-height: 100px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 100%;
+}
+
+.profile-grid-description {
+    line-height: 30px;
+    font-size: 25px;
+    margin-top: 30px;
+    text-align:left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    width: 100%;
+}
+
+textarea{
+    width: 100%;
+}
+
+.profile-grid img {
+    width: 100%;
+    /* height: 100%; */
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.profile-item {
+    font-size: 30px;
+    line-height: 60px;
+}
+
+.profile-item-nick {
+    font-size: 100px;
+}
+
+.profile-buttons-container {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.profile-buttons {
+    font-size: 30px;
+}
+
+.profile-edit-recomendation {
+    font-size: 40px;
+    text-align: center;
+    font-style: italic;
+}
+
+.input-nickname {
+    /* font-size: 25px; */
+    /* background-color: #5948b5; */
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+/* 
+
+    Перегляд блогу
+
+*/
+
+.blog-view-title{
+    display: block;
+    text-align: center;
+    font-size: 110px;
+    word-wrap: break-word;    
+}
+
+.blog-view-container {
+    display: grid;
+    grid-template-columns: 13% 74% 13%;
+    place-items: center;
+}
+
+.blog-view-item {
+    text-align: center;
+    line-height: 100px;
+    font-size: 100px;
+}
+
+#like-button,
+#like-button span {
+    display: inline-block;  /* Делаем их строчными, чтобы они не занимали лишнего места */
+    margin: 0;              /* Убираем отступы */
+    padding: 0;             /* Убираем паддинги */
+    text-decoration: none;  /* Убираем подчеркивание у <a> */
+    line-height: normal;    /* Убираем лишний line-height */
+    cursor: pointer;
+}
+
+#like-button:hover {
+    font-size: 120px;
+}
+
+.blog-view-item img {
+    width: 100%;
+    max-height: 800px;
+    border-radius: 25px;
+}
+
+.blog-view-description-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 30px;
+    text-align: justify;
+}
+
+.blog-view-description {
+    font-size: 40px;
+}
+
+.blog-view-author {
+    text-align: right;
+    font-size: 30px;
+    padding-right: 20px;
+}
+
+
+/* 
+
+    Редагування блогу
+
+*/
+
+.blog-redaction-title {
+    font-size: 60px;
+    text-align: center;
+    padding: 40px;
+}
+
+.blog-redaction-container {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    place-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.blog-redaction-item {
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.blog-redaction-item img {
+    max-height: 600px;
+    max-width: 100%;
+}
+
+input#id_image {
+    width: 100%;
+}
+
+input#id_topic {
+    width: 100%;
+}
+
+textarea#id_text {
+    max-height: 450px;
+}
+
+
+/* 
+
+    Порушення правил
+
+*/
+
+.blog-break-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-items: center;
+    padding: 8%;
+    gap: 30px;
+}
+
+.blog-break-item {
+    font-size: 50px;
+}
+
+.verdict-container {
+    display: flex;
+    flex-direction: row;
+    padding: 40px;
+}
+
+.verdict-item {
+    font-size: 80px;
+    flex: 1;
+    text-align: center;
+}
+
+.search {
+    border-radius: 20px;
+    text-align: center;
+    width: 100%;
+}

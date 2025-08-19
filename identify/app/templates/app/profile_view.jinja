@@ -1,0 +1,56 @@
+{% extends "app/layout.jinja" %}
+{% load static %}
+
+{% block title %}
+    Профіль - {{ user_view.nickname }}
+{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background-color: {{ user_view.profile.main_color }};
+        color: {{ user_view.profile.text_color }};
+    }
+
+    a {
+        color: {{ user_view.profile.text_color }}
+    }
+</style>
+<div class="profile" style="background-color: {{ user_view.profile.header_color }};">
+    <div class="profile-grid">
+        <img src="{{ user_view.profile.avatar.url }}">
+    </div>
+    <div class="profile-grid">
+        <div class="profile-container">
+            <div class="profile-item">
+                {{ user_view.nickname }}
+            </div>
+            <div class="profile-item">
+                Лайки: {{ user_view.profile.likes }}
+            </div>
+            <div class="profile-item">
+                Перегляди: {{ user_view.profile.views }}
+            </div>
+            <div class="profile-item">
+                {% if user_view.is_staff %}
+                    <img style="width: 64px;height: 64px;" src="{% static 'app/images/logo.png' %}" alt="На головну">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="profile-grid-description">
+        {{ user_view.description }}
+    </div>
+</div>
+    <div class="grid-container">
+        {% for blog in blogs %}
+        <div class="grid-item">
+            <a href="{% url 'blog_view' blog.id %}">
+                <img src="{{ blog.image.url }}" alt="{{ blog.topic }}">
+                <p>{{ blog.topic }}</p>
+                <p>{{ blog.view }} переглядів, {{ blog.like }} лайків</p>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

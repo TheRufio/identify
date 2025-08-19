@@ -1,0 +1,33 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+
+{% block title %}
+    Порушення - {{ blog.author.nickname }}
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="blog-break-container">
+            <div class="blog-break-item">
+                Опишіть причину видалення блогу "{{ blog.topic }}" користувача "{{ blog.author.nickname }}": 
+                {{ form.reason }}
+            </div>
+            <div class="blog-break-item">
+                На даний момент користувач має - {{ blog.author.break_rull }} порушень правил
+                <br>
+                <i>Спогадка: при отриманні 3 порушень правил, аккаунт користувача буде деактивовано</i>
+            </div>
+            <div class="blog-break-item">
+                Укажіть степінь порушення від 1 до 3:
+                {{ form.degree }}
+            </div>
+            <div class="blog-break-item" >
+                <button style="font-size: 70px;background-color: {{ user.profile.header_color }};color: {{ user.profile.text_color }}" type="submit">Підтвердити</button>
+            </div>
+        </div>
+
+    </form>
+
+    
+{% endblock %}

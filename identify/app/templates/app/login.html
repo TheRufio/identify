@@ -1,0 +1,32 @@
+{% extends 'app/layout_clean.html' %}
+{% load static %}
+{% block title %}
+    Логін
+{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="id_username">Номер телефону:</label>
+            {{ form.username }}
+        </div>
+        <div class="form-row">
+            <label for="id_password">Пароль:</label>
+            {{ form.password }}
+        </div>
+        <button type="submit">Увійти</button>
+        <a href="{% url 'register' %}">Зареєструватися</a>
+        <a href="https://t.me/Identiffybot">Telegram bot</a>
+        {% if form.non_field_errors %}
+            <div class="error form-errors">
+                {% for error in form.non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </form>
+    
+</div>
+{% endblock %}

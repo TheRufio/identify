@@ -1,0 +1,105 @@
+{% extends 'app/layout.jinja' %}
+{% load static %}
+{% block title %}
+    Перегляд
+{% endblock %}
+
+{% block content %}
+    <div class="blog-view-title">
+        {{ blog.topic }}
+        {% if blog.author.is_staff %}
+            <img style="width: 64px;height: 64px" src="{% static 'app/images/logo.png' %}" alt="suka">
+        {% endif %}
+    </div>
+    <div class="blog-view-container">
+        <div class="blog-view-item">
+            𓂀
+            <br>
+            <p>{{ blog.view }}</p>
+        </div>
+        <div class="blog-view-item">
+            <img style="border: 1px {{ user.profile.text_color }} solid" src="{{ blog.image.url }}">
+        </div>
+        <div class="blog-view-item">
+            <a id="like-button">♡</a>
+            <br>
+            <p id="likes-count">{{ blog.like }}</p>
+        </div>
+    </div>
+    <div class="blog-view-description-container">
+        <div class="blog-view-description">
+            {{ blog.text }}
+        </div>
+    </div>
+        <div class="blog-view-author">
+            Теги:
+            {% for tag in tags%}
+                 <a href="{% url 'search_result' %}" id="searchLink">#{{ tag }}</a>
+            {% endfor%}
+        </div>
+        <div class="blog-view-author">
+            Автор Iden'у - 
+            <a href="{% url 'profile_view' user_id=blog.author.id %}">
+                {{ blog.author.nickname }}
+            </a>
+            ({{ blog.created_at|date:"d.m.Y" }})
+            {% if request.user == blog.author %}
+            <a href="{% url 'blog_redaction' user_id=user.id blog_id=blog.id %}">
+                (Редагувати)
+            </a>
+            {% endif %}
+            {% if request.user.is_staff %}
+            <br>
+                <a href="{% url 'blog_break' user_id=user.id blog_id=blog.id %}">
+                    (Порушення правил)
+                </a>   
+            {% endif %}
+        </div>
+
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Проверяем, был ли уже поставлен лайк на данный момент
+        {% if request.user in blog.likers.all %}
+            $('#like-button').html('<span style="text-decoration: underline;">♡</span>');
+        {% else %}
+            $('#like-button').text('♡');
+        {% endif %}
+
+        // Обработчик клика на кнопку лайка
+        $('#like-button').click(function() {
+            $.post("{% url 'like_blog' blog.id %}", {
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            }, function(data) {
+                if (data.status === 'liked') {
+                    $('#likes-count').text(data.likes);
+                    $('#like-button').html('<span style="text-decoration:underline">♡</span>');
+                } else if (data.status === 'unliked') {
+                    $('#likes-count').text(data.likes);
+                    $('#like-button').text('♡');
+                }
+            });
+        });
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    // Додаємо обробник події для оновлення посилання
+    document.getElementById('searchInput').addEventListener('input', function () {
+        const query = this.value; // Отримуємо значення з поля введення
+        const searchLink = document.getElementById('searchLink');
+        const baseUrl = "{% url 'search_result' %}"; // Базовий URL для пошуку
+        searchLink.href = `${baseUrl}?query=${encodeURIComponent(query)}`; // Додаємо параметр query до URL
+    });
+
+    // Додаємо обробник події для форми
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        const query = document.getElementById('searchInput').value; // Отримуємо значення з поля введення
+        if (!query.trim()) {
+            event.preventDefault(); // Зупиняємо відправку форми, якщо поле порожнє
+            alert('Будь ласка, введіть текст для пошуку.');
+        }
+    });
+</script>
+{% endblock %}
