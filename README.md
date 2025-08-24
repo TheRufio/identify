@@ -58,16 +58,43 @@ Registered users can log into the system using their credentials.
 
 ---
 
-#Use case diagram
+# Use case diagram
 <p align="center">
   <img width="951" height="707" alt="image" src="https://github.com/user-attachments/assets/e1a74e0e-0f91-482d-996f-e2e782e5bf91" />
 </p>
 
 ---
-#BPMN diagram
+
+# BPMN diagram
 <p align="center">
   <img width="1862" height="672" alt="image" src="https://github.com/user-attachments/assets/cee60b49-0748-4fd1-8941-9d02f79b2879" />
 </p>
 
+---
 
+# Class diagram
+<p align="center">
+  <img width="1236" height="847" alt="image" src="https://github.com/user-attachments/assets/3e879ba7-6598-44fe-b193-b337c8928530" />
+</p>
+
+---
+
+# Sequence diagram (authentication & profile edit)
+<p align="center">
+  <img width="1616" height="810" alt="image" src="https://github.com/user-attachments/assets/df5686f1-6eab-47dc-b0d2-17cbd50d97d7" />
+</p>
+
+---
+
+# Sequence diagram (user)
+<p align="center">
+  <img width="952" height="810" alt="image" src="https://github.com/user-attachments/assets/fae6067a-2672-448f-924c-2934b328bde1" />
+</p>
+
+---
+
+# Sequence diagram (moderator)
+<p align="center">
+  <img width="1436" height="790" alt="image" src="https://github.com/user-attachments/assets/3bbe9fec-74b2-4574-86f1-93d754c454ca" />
+</p>
 
