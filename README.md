@@ -57,3 +57,17 @@ New users can register with their phone number and other key details.
 Registered users can log into the system using their credentials.  
 
 ---
+
+#Use case diagram
+<p align="center">
+  <img width="951" height="707" alt="image" src="https://github.com/user-attachments/assets/e1a74e0e-0f91-482d-996f-e2e782e5bf91" />
+</p>
+
+---
+#BPMN diagram
+<p align="center">
+  <img width="1862" height="672" alt="image" src="https://github.com/user-attachments/assets/cee60b49-0748-4fd1-8941-9d02f79b2879" />
+</p>
+
+
+
